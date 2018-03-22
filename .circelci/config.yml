@@ -2,6 +2,8 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
+
+
 version: 2
 jobs:
   build:
@@ -48,4 +50,11 @@ jobs:
           name: run tests
           command: |
             python simple_test.py
-
+            
+  deploy-job:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - run:
+        name: Decode and Store Service Account
+        command: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
