@@ -51,7 +51,7 @@ jobs:
           command: |
             python simple_test.py
             
-  deploy-job:
+  deploy:
     docker:
       - image: google/cloud-sdk
     steps:
@@ -62,3 +62,15 @@ jobs:
         sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
         sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
         sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
+        
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
