@@ -56,17 +56,17 @@ jobs:
       - image: google/cloud-sdk
     steps:
       - run:
-        name: Decode and Store Service Account
-        command: |
-        echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
-        sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
-        sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-        sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
-        gcloud --quiet components update
-        gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-        gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-        gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-        gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+          name: Decode and Store Service Account
+          command: |
+          echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
+          sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
+          sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+          sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
+          gcloud --quiet components update
+          gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+          gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
 
         
 workflows:
