@@ -55,31 +55,48 @@ jobs:
             
   deploy:
     docker:
-      - image: google/cloud-sdk
+      - image:circleci/php:7.1-node-browsers
+      working_directory: ~/laravel
     steps:
-      - run:
-          name: Decode and Store Service Account
-          command: |
-          echo "-----start deploy:"
-          echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
-          sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
-          sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-          sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
-          gcloud container clusters get-credentials nginx-1-cluster --zone us-central1-
-a --project test-ci-198806
-          gcloud --quiet components update
-          gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-          gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
-          echo "-----finish"
+      steps:
+      - checkout
+      - run: sudo apt install -y libsqlite3-dev zlib1g-dev
+      - run: sudo docker-php-ext-install zip
+      - run: sudo composer self-update
+      - restore_cache:
+          keys:
+            - composer-v1-{{ checksum "composer.lock" }}
+            - composer-v1-
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package.json" }}
+            - node-v1-
+      - run: yarn install
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run: touch storage/testing.sqlite
+      - run: php artisan migrate --env=testing --database=sqlite_testing --force
+      - run: ./vendor/bin/codecept build
+      - run: ./vendor/bin/codecept run
+      - run: ifconfig
+      
 
         
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - deploy
+     - build
+      - deploy:
+          requires:
+            - build
       
 
 
