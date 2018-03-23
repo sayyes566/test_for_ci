@@ -49,7 +49,9 @@ jobs:
       - run:
           name: run tests
           command: |
+            echo "-----start test:"
             python simple_test.py
+            echo "-----end test:"
             
   deploy:
     docker:
@@ -58,15 +60,19 @@ jobs:
       - run:
           name: Decode and Store Service Account
           command: |
+          echo "-----start deploy:"
           echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
           sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
           sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
           sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
+          gcloud container clusters get-credentials nginx-1-cluster --zone us-central1-
+a --project test-ci-198806
           gcloud --quiet components update
           gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
           gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
           gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+          echo "-----finish"
 
         
 workflows:
