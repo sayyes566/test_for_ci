@@ -1,12 +1,10 @@
 language: python
 python:
-  - "2.6"
-  - "2.7"
-# command to install dependencies
-#install:
-#  - pip install -r requirements.txt
-# command to run tests
+- '2.6'
+- '2.7'
 script:
-  #- pytest # or py.test for Python versions 3.5 and below
-  - python simple_test.py
-  - python test.py
+- python simple_test.py
+- python test.py
+env:
+  global:
+    secure: UmH+xS1dqpXczaT2/7YUEn6ScTb41kWWbpRWYp5ze4877dlgtYkntQD4KNIQy+H70MeX/b8w7VRTWY9ZWrtBVR/P13AKEp24jXOUL/hIwL5Bims07/OKSnE4GO6vQfAYjvs1KXzXM5gf9KfGOV4XlmzyS6SzLV2TT+6e+wNeXL2KNt9XIatfC0PZvbJvqwacp+7BhM2o6fsnAjiUPHsEhXmhk0Amx2GNrkcEbFZPf6F1au1PgxBjUAMm7oKp6Bd+5aFciYvZnA9MMtw4s1d994WktwQVL9leNIXQbIhGtEZZMvF+pn6oq9pUefVL/hguJ+mcBZJ+cA770MOmlyyirb9orJHSQVd6D5+bn6CU01eOk+odm3Sqepa2taYCgN5eBvok2N3hFsQB1jb26nHAc2TUJ1rgRTFKS2G+XCc1GXSgIme7D2WIfj1kOQpxsf9tE0j2A+vzJcXJCJk8A86Vve/VgnaPzmi7NfaU+JXEAOnub4/RoTKlxiyjsGnVuDgrCazaqVSKWjufh+yKTuMSs+5UNQLHLMIBuxczFqT9LGkFVEIQE/8TbUnQO++61ltfkGm/0RCB0TcQ+vEZIxbAC2/w32nAS5EVXh8PuqvgMFzHmGHU2qAGQeBuqHSKhT4AmHxduqdJspLwlriTohZDmYIxUpQLkY7OsrttZ+EaVww=
