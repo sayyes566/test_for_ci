@@ -1,18 +1,1 @@
-language: python
-python:
-- '2.6'
-- '2.7'
-script:
-  #- pytest # or py.test for Python versions 3.5 and below
-  - python simple_test.py
-  - python test.py
-before_deploy: "echo 'ready to deploy---'"
-deploy:
-  provider: firebase
-  skip_cleanup: true
-  token:
-    secure: "al5NkXAp87jiUUJtSDHzL4eyQNF/wAo85Ec9I+XXqdWFdxD3xpaivQ7xU4SJ/+kLEffmd6PQewscgC/4n5hvQEUSXdlbhgjSiTWcQ3v9ceAtUL9LhJVNtZx1DO/zsC7gY++Dq7W+ujSR0UmqRpa+aGmScYe/BMK9RUT0CG+2xTOEvy95aaWIabECUl0EmbDMMTwdCEgjnbzqIufW7m5//v9qiy2bbBbotcq4KbvCXTZTXCRDRapCpla785U2Pq/pW63t9agvRHUvUyy/uSmaIVTdwzGzOY2rrEud2bGOSyeW6lbsHumX+sPXrbYKDqXJT/k0cwQ4ZsD6pJ2LhG4HzvZZWKds9awJutJ5fg/3mYXlWmaBkeyClpnJe5lJPu4QLjIjx1EJc5ERVzHWaW3BzdGYPqKP40SSrONxsosrvWTDQAZ1bL20UNZlIoYKTUb1Nq+0qKXX+cxxxozurhOLSK1f+uJqGvhLDsJa0XZ7KpcWqvcyH3cw7il6V56NzMAdNBwZUJxIV2dnarQ1bnzN6EgOLdkXt5zqITWNMEa9mpuEbBBaBHjuNXimRAJ1ICzVUC0BRKGBdCV0TNlIdMVUoPliOSlHvlOufxmPU5+Zlx+AaqKn1FVl5WfCHsJjtTHoL/44AvF8Ob9d3OuOMQ7wts89T0r19clIpD5EcANAOVA="
-  message: "deploy message: HELLO DEPLOY TRAVIS CI"
-  
-after_deploy: "echo 'end of deploy---'"
-    
+
