@@ -6,12 +6,12 @@
 
 version: 2
 jobs:
-  build:
+  build-1:
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       - image:  google/cloud-sdk
-   
+      working_directory: ~
     steps:
       - checkout
       - run:
@@ -24,7 +24,8 @@ jobs:
           name: run config
           command: |       
             gcloud --quiet components update
-            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=./gcloud-service-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
@@ -42,12 +43,14 @@ jobs:
   deploy:
     docker:
       - image: google/cloud-sdk
+      working_directory: ~
     steps:
      - run:
           name: run config
           command: |       
             gcloud --quiet components update
-            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=./gcloud-service-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
@@ -66,8 +69,8 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
+      - build-1
       - deploy
         requires:
-          build
+          build-1
       
