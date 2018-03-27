@@ -19,25 +19,29 @@ jobs:
           command: |
             echo "-----start test:"
             python simple_test.py
-            echo "-----end test:"
+            echo "-----end test"
       - run:
           name: run config
-          command: |       
+          command: |    
+            echo "----run gcp config"
             gcloud --quiet components update
             echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
             gcloud auth activate-service-account --key-file=./gcloud-service-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+            echo "-----end config"
       - run:
          name:prepare to deploy
          command:|
+           echo "----run prepare to deploy"
            docker build -t gcr.io/$GOOGLE_PROJECT_ID/hello-circleci-app:v1 .
            gcloud docker -- push gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v1
            gcloud container clusters create hello-circleci-cluster --num-nodes=2
            kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v1 --port 8080
            kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 8080
            kubectl scale deployment hello-circleci-web --replicas=2
+           echo "-----end deploy"
 
             
   deploy:
