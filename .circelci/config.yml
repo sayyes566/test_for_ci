@@ -25,12 +25,15 @@ jobs:
           command: |    
             echo "----run gcp config"
             gcloud --quiet components update
+            apt-get update && sudo apt-get --only-upgrade install kubectl google-cloud-sdk google-cloud-sdk-app-engine-grpc google-cloud-sdk-pubsub-emulator google-cloud-sdk-app-engine-go google-cloud-sdk-datastore-emulator google-cloud-sdk-app-engine-python google-cloud-sdk-cbt google-cloud-sdk-bigtable-emulator google-cloud-sdk-app-engine-python-extras google-cloud-sdk-datalab google-cloud-sdk-app-engine-java
+            
             echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
             gcloud auth activate-service-account --key-file=./gcloud-service-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
             echo "-----end config"
+            
       - run:
          name:prepare to deploy
          command:|
