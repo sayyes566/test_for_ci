@@ -70,7 +70,4 @@ workflows:
   build-and-deploy:
     jobs:
       - build-1
-      - deploy
-        requires:
-          build-1
-      
+     
