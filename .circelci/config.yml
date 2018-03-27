@@ -88,4 +88,6 @@ workflows:
   build-and-deploy:
     jobs:
       - deploy-part
-     
+      - build-1:
+        requires:
+          deploy-part
