@@ -47,5 +47,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # Add nginx volumes
 VOLUME ["/var/www"]
 
+ENV PORT 8080
+
 # Set the work directory
 WORKDIR /var/www
