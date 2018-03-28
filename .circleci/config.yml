@@ -37,17 +37,14 @@ jobs:
             
       - run: echo "----prepare to deploy"
       - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v1 .
-      - run:     gcloud container clusters create hello-circleci-cluster --num-nodes=2
-      - run:     kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v1 --port 8080
-      - run:     kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 8080
-      - run:     kubectl scale deployment hello-circleci-web --replicas=2
-          
+      
 
             
   deploy:
     docker:
       - image: google/cloud-sdk
     steps:
+      - checkout
       - run: echo "----run config"
       - run:        echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
       - run:       gcloud auth activate-service-account --key-file=./gcloud-service-key.json
@@ -56,9 +53,11 @@ jobs:
       - run:       gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
 
       - run: echo "----run CD"
-      - run:      kubectl set image deployment/hello-circleci-web hello-circleci-web=gcr.io/${GOOGLE_PROJECT_ID}/hello-app
-      - run:      kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 8080
-           
+      - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v1 .
+      - run:     gcloud container clusters create hello-circleci-cluster --num-nodes=2
+      - run:     kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v1 --port 8080
+      - run:     kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 8080
+      - run:     kubectl scale deployment hello-circleci-web --replicas=2
 
         
 workflows:
