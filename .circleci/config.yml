@@ -23,7 +23,7 @@ jobs:
           name: run config
           command: |    
             echo "----run gcp config"
-      - run: $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
+      - run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
       - run:      gcloud auth activate-service-account --key-file=./gcloud-service-key.json
       - run:      gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
       - run:      gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
