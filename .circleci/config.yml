@@ -34,14 +34,14 @@ jobs:
       - run:
          name:prepare to deploy
          command:|
-           echo "----run prepare to deploy"
+          
            docker build -t gcr.io/$GOOGLE_PROJECT_ID/hello-circleci-app:v1 .
            gcloud docker -- push gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v1
            gcloud container clusters create hello-circleci-cluster --num-nodes=2
            kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v1 --port 8080
            kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 8080
            kubectl scale deployment hello-circleci-web --replicas=2
-           echo "-----end deploy"
+          
 
             
   deploy:
@@ -61,12 +61,12 @@ jobs:
       - run:
           name: Decode and Store Service Account
           command: |
-            echo "-----start deploy:"
+            
             docker build -t gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v2 .
             gcloud docker -- push gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v2
             kubectl set image deployment/hello-circleci-web hello-circleci-web=gcr.io/${GOOGLE_PROJECT_ID}/hello-app:v2
             kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 8080
-            echo "-----finish"
+           
 
         
 workflows:
