@@ -17,6 +17,8 @@ cd /tmp && curl -sS https://getcomposer.org/installer | php && mv composer.phar 
 # Add  volumes
 VOLUME ["/var/www/html"]
 
+COPY ./* /var/www/html
+
 ENV PORT 8080
 
 # Set the work directory
