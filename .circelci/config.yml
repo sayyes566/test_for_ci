@@ -4,16 +4,13 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
 
-
-
 version: 2
 jobs:
-  build-1:
+  build:
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       - image:  google/cloud-sdk
-      working_directory: ~
     steps:
       - checkout
       - run:
@@ -26,7 +23,6 @@ jobs:
           name: run config
           command: |    
             echo "----run gcp config"
-            gcloud --quiet components update
             apt-get update && sudo apt-get --only-upgrade install kubectl google-cloud-sdk google-cloud-sdk-app-engine-grpc google-cloud-sdk-pubsub-emulator google-cloud-sdk-app-engine-go google-cloud-sdk-datastore-emulator google-cloud-sdk-app-engine-python google-cloud-sdk-cbt google-cloud-sdk-bigtable-emulator google-cloud-sdk-app-engine-python-extras google-cloud-sdk-datalab google-cloud-sdk-app-engine-java
             
             echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
@@ -49,15 +45,13 @@ jobs:
            echo "-----end deploy"
 
             
-  deploy-part:
+  deploy:
     docker:
       - image: google/cloud-sdk
-      working_directory: ~
     steps:
      - run:
           name: run config
           command: |       
-            gcloud --quiet components update
             echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
             gcloud auth activate-service-account --key-file=./gcloud-service-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
@@ -89,7 +83,7 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - deploy-part
-      - build-1:
-        requires:
-          deploy-part
+      - build
+      - deploy:
+          requires:
+            - build
