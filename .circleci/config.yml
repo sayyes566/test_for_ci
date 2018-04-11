@@ -51,10 +51,10 @@ jobs:
       #- run:       gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
 
       - run: echo "----run CD"
-      - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v5 .
+      - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v6 .
       #- run: docker run --rm -p 8080:8080 gcr.io/${PROJECT_ID}/hello-app:v4
       #- run:     gcloud container clusters create hello-circleci-cluster --num-nodes=2
-      - run:     kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v5 --port 8080
+      - run:     kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v6 --port 8080
       - run:     kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 8080
       #- run:     kubectl scale deployment hello-circleci-web --replicas=2
       #- run: kubectl set image deployment/hello-web hello-web=gcr.io/${PROJECT_ID}/hello-circleci-app:v3
