@@ -19,7 +19,7 @@ jobs:
             echo "-----start test:"
             python simple_test.py
             echo "-----end test"
-      - run:
+      #- run:
           name: run env config
           command: |
             echo "-----start env:"
@@ -27,13 +27,13 @@ jobs:
             echo $GOOGLE_PROJECT_ID
             echo ${GOOGLE_PROJECT_ID}
             echo "-----end env"
-      - run: echo "----run gcp config"
-      - run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
-      - run:      gcloud auth activate-service-account --key-file=./gcloud-service-key.json
-      - run:      gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-      - run:      gcloud --quiet config set compute/zone asia-east1-b
+      #- run: echo "----run gcp config"
+      #- run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
+      #- run:      gcloud auth activate-service-account --key-file=./gcloud-service-key.json
+      #- run:      gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+      #- run:      gcloud --quiet config set compute/zone asia-east1-b
       #- run:      gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
-      - run:      echo "-----end config"echo
+      #- run:      echo "-----end config"echo
             
       
 
@@ -52,10 +52,10 @@ jobs:
       #- run: gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
 
       - run: echo "----run CD"
-      - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v2 .
+      - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v1 .
       #- run: docker run --rm -p 8080:8080 gcr.io/${PROJECT_ID}/hello-app:v4
-      - run: gcloud container clusters create hello-circleci-cluster --num-nodes=1
-      - run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v2 --port 8080
+      #- run: gcloud container clusters create hello-circleci-cluster --num-nodes=1
+      - run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v1 --port 8080
       - run: kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 8080
       #- run: kubectl scale deployment hello-circleci-web --replicas=2
       #- run: kubectl set image deployment/hello-web hello-web=gcr.io/${PROJECT_ID}/hello-circleci-app:v3
