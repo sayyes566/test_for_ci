@@ -46,14 +46,17 @@ jobs:
       - run: echo "----run config"
       - run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
       - run: gcloud auth activate-service-account --key-file=./gcloud-service-key.json
+      - run: gcloud auth configure-docker
       - run: gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
       - run: gcloud --quiet config set compute/zone asia-east1-b
       - run: gcloud container images list --repository=gcr.io/${GOOGLE_PROJECT_ID}
       #- run: gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
 
       - run: echo "----run CD"
-      - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
-      #- run: docker run --rm -p 8080:8080 gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
+      #- run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
+      - run: docker build -t gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
+      - run: docker push  gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
+      - run: docker run --rm -p 8080:8080 gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
       - run: gcloud container clusters create hello-circleci-cluster --num-nodes=2
       - run: gcloud container clusters get-credentials hello-circleci-cluster
       - run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4--port 8080
