@@ -46,6 +46,7 @@ jobs:
       - run: echo "----run config"
       - run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
       - run: gcloud auth activate-service-account --key-file=./gcloud-service-key.json
+      - run: docker version --format '{{.Client.Version}}'
       - run: gcloud alpha auth configure-docker
       - run: gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
       - run: gcloud --quiet config set compute/zone asia-east1-b
