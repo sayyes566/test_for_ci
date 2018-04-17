@@ -27,6 +27,8 @@ jobs:
             echo $GOOGLE_PROJECT_ID
             echo ${GOOGLE_PROJECT_ID}
             echo "-----end env"
+      - run:
+            echo $GCLOUD_SERVICE_KEY 
       #- run: echo "----run gcp config"
       #- run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
       #- run:      gcloud auth activate-service-account --key-file=./gcloud-service-key.json
