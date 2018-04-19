@@ -1,1 +1,3 @@
-<?php echo("HELLO PHP"); ?>
+<div id="UHSearchBox">
+  <?php echo("HELLO PHP"); ?>
+</div>
