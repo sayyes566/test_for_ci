@@ -13,7 +13,6 @@ php5enmod mcrypt && \
 rm -rf /var/lib/apt/lists/* && \
 cd /tmp && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
-
 # Add  volumes
 VOLUME ["/var/www/html"]
 
