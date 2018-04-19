@@ -19,7 +19,6 @@ VOLUME ["/var/www/html"]
 
 COPY ./* /var/www/html/
 
-ENV PORT 8080
 
 # Set the work directory
 WORKDIR /var/www/html
