@@ -80,6 +80,7 @@ jobs:
       # compose image and kubectl run 
       #- run: kompose up
       - run: kompose convert -f docker-compose.yml
+      - run: kompose up
       # run test case
       - run: pip install selenium
       - run: python test2.py --input=http://${server_ip}/test.html 
