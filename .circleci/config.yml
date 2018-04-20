@@ -89,6 +89,8 @@ jobs:
       - run: ls -la
       - run: yaml=$(ls *yaml)
       - run: echo $yaml
+      - run: cat selenium-hub-deployment.yaml
+      - run: cat selenium-hub-service.yaml
       #----
       #- run: for y in $yaml; do echo $y; done   
       #- run: kubectl create -f chrome-service.yaml
