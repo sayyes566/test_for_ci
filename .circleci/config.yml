@@ -59,12 +59,13 @@ jobs:
       #- run: docker build -t gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
       #- run: docker push  gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
       #- run: docker run --rm -p 8080:8080 gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
-      - run: gcloud container clusters create hello-circleci-cluster --num-nodes=1 
-      - run: gcloud container clusters get-credentials hello-circleci-cluster
-      - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
-      - run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 --port 80
-      #- run: kubectl expose deployment hello-circleci-web --port 80 --target-port 8080
-      - run: kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 80
+      #----
+      #- run: gcloud container clusters create hello-circleci-cluster --num-nodes=1 
+      #- run: gcloud container clusters get-credentials hello-circleci-cluster
+      #- run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
+      #- run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 --port 80
+      #- run: kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 80
+      #----
       #- run: kubectl scale deployment hello-circleci-web --replicas=2
       #- run: kubectl set image deployment/hello-web hello-web=gcr.io/${PROJECT_ID}/hello-circleci-app:v3
       # get external ip
