@@ -74,11 +74,11 @@ jobs:
       # install kompose
       - run: curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-linux-amd64 -o kompose
       - run: chmod +x kompose
-      - run: sudo mv ./kompose /usr/local/bin/kompose
+      - run: mv ./kompose /usr/local/bin/kompose
       # compose image and kubectl run 
       - run: kompose up
       # run test case
-      - run: sudo pip install selenium
+      - run: pip install selenium
       - run: python test2.py --input=http://${server_ip}/test.html 
 
 
