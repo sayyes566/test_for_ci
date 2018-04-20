@@ -85,7 +85,7 @@ jobs:
       - run: yaml=$(ls *yaml)
       - run: echo $yaml
       - run: for y in $yaml; do echo $y; done   
-      - run: kubectl create -f chrome-service.yaml
+      #- run: kubectl create -f chrome-service.yaml
       - run: kubectl create -f firefox-service.yaml
       - run: kubectl create -f selenium-hub-service.yaml
       - run: kubectl create -f chrome-deployment.yaml
