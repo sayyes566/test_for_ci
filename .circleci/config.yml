@@ -91,6 +91,7 @@ jobs:
       - run: echo $yaml
       - run: cat selenium-hub-deployment.yaml
       - run: cat selenium-hub-service.yaml
+      - run: cat chrome*.yaml
       #- run: kubectl create -f .
       #----
       #- run: kubectl create -f selenium-hub-service.yaml
