@@ -1,27 +1,30 @@
 from selenium import webdriver
 import unittest
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-import sys
+import sys, argparse
 
 class SearchText(unittest.TestCase):
    def setUp(self):
+        self.test_ip=args.input
         # create a new session
         self.chrome = webdriver.Remote(
             command_executor='http://localhost:4444/wd/hub',
             desired_capabilities=DesiredCapabilities.CHROME)
-        test_ip = sys.argv[1]
-        self.chrome.get('http://' + test_ip)
-
-
-    def test_search_by_text(self):
-        lists = self.driver.find_elements_by_class_name("w10")
-        no=len(lists)
-        self.assertEqual(10, len(lists))
-        
+        self.chrome.get('http://' + self.test_ip)
+   def test_search_by_text(self):
+        #lists = self.chrome.find_elements_by_class_name("w10")
+        #no=len(lists)
+        title=self.chrome.title
+        self.assertIn('Hello', len(title))
    def tearDown(self):
         # close the browser window
         self.chrome.quit()
-        
- if __name__ == '__main__':
-    test_ip = sys.argv[1]
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input', default='My Input')
+    parser.add_argument('unittest_args', nargs='*')
+    args = parser.parse_args()
+    sys.argv[1:] = args.unittest_args
     unittest.main()
+
+
