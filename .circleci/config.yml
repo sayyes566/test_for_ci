@@ -84,7 +84,7 @@ jobs:
       - run: mv ./kompose /usr/local/bin/kompose
       # compose image and kubectl run 
       #- run: kompose up
-      - run: kompose convert -f docker-compose.yml
+      - run: kompose convert -f docker-compose.yml | kubectl create -f -
       - run: pwd
       - run: ls -la
       - run: yaml=$(ls *yaml)
@@ -92,14 +92,15 @@ jobs:
       - run: cat selenium-hub-deployment.yaml
       - run: cat selenium-hub-service.yaml
       #----
-      #- run: for y in $yaml; do echo $y; done   
+      #- run: kubectl create -f selenium-hub-service.yaml
+      #- run: kubectl create -f selenium-hub-deployment.yaml 
       #- run: kubectl create -f chrome-service.yaml
       #- run: kubectl create -f firefox-service.yaml
-      #- run: kubectl create -f selenium-hub-service.yaml
+      #- run: kubectl create -f firefox-deployment.yaml
       #- run: kubectl create -f chrome-deployment.yaml
       #- run: kubectl create -f chrome-claim0-persistentvolumeclaim.yaml
-      #- run: kubectl create -f firefox-deployment.yaml
-      #- run: kubectl create -f selenium-hub-deployment.yaml
+
+      
       #- run: kubectl get pods
       #- run: kubectl get services
       #----
