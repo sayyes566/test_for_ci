@@ -9,7 +9,7 @@ class SearchText(unittest.TestCase):
         print( self.test_ip)
         # create a new session
         self.chrome = webdriver.Remote(
-            command_executor='http://localhost:4444/wd/hub',
+            command_executor='http://10.55.242.84:4444/wd/hub',
             desired_capabilities=DesiredCapabilities.CHROME)
         self.chrome.get('http://' + self.test_ip)
    def test_search_by_text(self):
