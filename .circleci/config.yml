@@ -82,7 +82,8 @@ jobs:
       - run: kompose convert -f docker-compose.yml
       - run: pwd
       - run: ls -la
-      - run: kubectl create -f *yaml
+      - run: yaml=$(ls *yaml)
+      - run: for y in $yaml; do  ls kubectl create -f $y; done  
       - run: kubectl get pods
       - run: kubectl get services
       # run test case
