@@ -83,7 +83,7 @@ jobs:
       - run: pwd
       - run: ls -la
       - run: yaml=$(ls *yaml)
-      - run: for y in $yaml; do  ls kubectl create -f $y; done  
+      - run: for y in $yaml; do kubectl create -f $y; done  
       - run: kubectl get pods
       - run: kubectl get services
       # run test case
