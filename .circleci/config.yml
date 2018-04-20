@@ -69,11 +69,13 @@ jobs:
       #- run: kubectl scale deployment hello-circleci-web --replicas=2
       #- run: kubectl set image deployment/hello-web hello-web=gcr.io/${PROJECT_ID}/hello-circleci-app:v3
       # get external ip
+      - run: gcloud container clusters get-credentials hello-circleci-cluster
       - run: echo $(kubectl get service  hello-circleci-web) > service.txt
+      - run: kubectl get service  hello-circleci-web
       - run: server_ip=$(cat service.txt  | awk '{print $10}')
       - run: echo $server_ip
       # install kompose
-      - run: gcloud container clusters get-credentials hello-circleci-cluster
+      
       - run: curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-linux-amd64 -o kompose
       - run: chmod +x kompose
       - run: mv ./kompose /usr/local/bin/kompose
