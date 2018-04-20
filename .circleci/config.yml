@@ -73,6 +73,8 @@ jobs:
       - run: echo $(kubectl get service  hello-circleci-web) > service.txt
       - run: cat service.txt
       - run: kubectl get service  hello-circleci-web
+      - run: cat service.txt  | awk '{print $10}'
+      - run: cat service.txt 
       - run: server_ip=$(cat service.txt  | awk '{print $10}')
       - run: echo $server_ip > ip.txt
       - run: cat ip.txt
