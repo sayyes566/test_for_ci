@@ -65,10 +65,22 @@ jobs:
       - run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 --port 80
       #- run: kubectl expose deployment hello-circleci-web --port 80 --target-port 8080
       - run: kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 80
-      - run: echo $(kubectl get service  hello-circleci-web) > service.txt
-      - run: server_ip=$(cat service.txt  | awk '{print $10}')
       #- run: kubectl scale deployment hello-circleci-web --replicas=2
       #- run: kubectl set image deployment/hello-web hello-web=gcr.io/${PROJECT_ID}/hello-circleci-app:v3
+      # get external ip
+      - run: echo $(kubectl get service  hello-circleci-web) > service.txt
+      - run: server_ip=$(cat service.txt  | awk '{print $10}')
+      - run: $server_ip
+      # install kompose
+      - run: curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-linux-amd64 -o kompose
+      - run: chmod +x kompose
+      - run: sudo mv ./kompose /usr/local/bin/kompose
+      # compose image and kubectl run 
+      - run: kompose up
+      # run test case
+      - run: sudo pip install selenium
+      - run: python test.py
+
 
         
 workflows:
