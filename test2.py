@@ -6,6 +6,7 @@ import sys, argparse
 class SearchText(unittest.TestCase):
    def setUp(self):
         self.test_ip=args.input
+        print( self.test_ip)
         # create a new session
         self.chrome = webdriver.Remote(
             command_executor='http://localhost:4444/wd/hub',
