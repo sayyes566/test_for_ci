@@ -84,16 +84,18 @@ jobs:
       - run: ls -la
       - run: yaml=$(ls *yaml)
       - run: echo $yaml
+      #----
       - run: for y in $yaml; do echo $y; done   
       #- run: kubectl create -f chrome-service.yaml
-      - run: kubectl create -f firefox-service.yaml
-      - run: kubectl create -f selenium-hub-service.yaml
-      - run: kubectl create -f chrome-deployment.yaml
-      - run: kubectl create -f chrome-claim0-persistentvolumeclaim.yaml
-      - run: kubectl create -f firefox-deployment.yaml
-      - run: kubectl create -f selenium-hub-deployment.yaml
-      - run: kubectl get pods
-      - run: kubectl get services
+      #- run: kubectl create -f firefox-service.yaml
+      #- run: kubectl create -f selenium-hub-service.yaml
+      #- run: kubectl create -f chrome-deployment.yaml
+      #- run: kubectl create -f chrome-claim0-persistentvolumeclaim.yaml
+      #- run: kubectl create -f firefox-deployment.yaml
+      #- run: kubectl create -f selenium-hub-deployment.yaml
+      #- run: kubectl get pods
+      #- run: kubectl get services
+      #----
       # run test case
       - run: pip install selenium
       - run: python test2.py --input=http://${server_ip}/test.html 
