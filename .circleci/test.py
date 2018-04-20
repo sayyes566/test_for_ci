@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import sys
 
 chrome = webdriver.Remote(
           command_executor='http://localhost:4444/wd/hub',
@@ -7,11 +8,11 @@ chrome = webdriver.Remote(
 firefox = webdriver.Remote(
           command_executor='http://localhost:4444/wd/hub',
           desired_capabilities=DesiredCapabilities.FIREFOX) 
-
-chrome.get('https://www.google.com')
+test_ip = sys.argv[1]
+chrome.get('http://' + test_ip)
 print(chrome.title)
 
-firefox.get('https://www.google.com')
+firefox.get('http://' + test_ip)
 print(firefox.title)
 
 chrome.quit()
