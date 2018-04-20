@@ -84,13 +84,14 @@ jobs:
       - run: mv ./kompose /usr/local/bin/kompose
       # compose image and kubectl run 
       #- run: kompose up
-      - run: kompose convert -f docker-compose.yml | kubectl create -f -
+      - run: kompose convert -f docker-compose.yml 
       - run: pwd
       - run: ls -la
       - run: yaml=$(ls *yaml)
       - run: echo $yaml
       - run: cat selenium-hub-deployment.yaml
       - run: cat selenium-hub-service.yaml
+      - run: kubectl create -f .
       #----
       #- run: kubectl create -f selenium-hub-service.yaml
       #- run: kubectl create -f selenium-hub-deployment.yaml 
