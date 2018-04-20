@@ -79,7 +79,7 @@ jobs:
       - run: kompose up
       # run test case
       - run: sudo pip install selenium
-      - run: python test.py
+      - run: python test.py http://${server_ip}/test.php
 
 
         
