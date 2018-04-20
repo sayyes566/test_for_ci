@@ -72,11 +72,13 @@ jobs:
       - run: server_ip=$(cat service.txt  | awk '{print $10}')
       - run: echo $server_ip
       # install kompose
+      - run: gcloud container clusters get-credentials hello-circleci-cluster
       - run: curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-linux-amd64 -o kompose
       - run: chmod +x kompose
       - run: mv ./kompose /usr/local/bin/kompose
       # compose image and kubectl run 
-      - run: kompose up
+      #- run: kompose up
+      - run: kompose convert -f docker-compose.yaml
       # run test case
       - run: pip install selenium
       - run: python test2.py --input=http://${server_ip}/test.html 
@@ -88,7 +90,7 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
+      #- build
       - deploy:
-          requires:
-            - build
+          #requires:
+          #  - build
