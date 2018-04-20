@@ -83,7 +83,9 @@ jobs:
       - run: pwd
       - run: ls -la
       - run: yaml=$(ls *yaml)
+      - run: echo $yaml
       - run: for y in $yaml; do kubectl create -f $y; done  
+      - run: kubectl create -f chrome-service.yaml
       - run: kubectl get pods
       - run: kubectl get services
       # run test case
