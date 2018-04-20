@@ -91,19 +91,19 @@ jobs:
       - run: echo $yaml
       - run: cat selenium-hub-deployment.yaml
       - run: cat selenium-hub-service.yaml
-      - run: kubectl create -f .
+      #- run: kubectl create -f .
       #----
-      #- run: kubectl create -f selenium-hub-service.yaml
-      #- run: kubectl create -f selenium-hub-deployment.yaml 
-      #- run: kubectl create -f chrome-service.yaml
-      #- run: kubectl create -f firefox-service.yaml
-      #- run: kubectl create -f firefox-deployment.yaml
-      #- run: kubectl create -f chrome-deployment.yaml
-      #- run: kubectl create -f chrome-claim0-persistentvolumeclaim.yaml
+      - run: kubectl create -f selenium-hub-service.yaml
+      - run: kubectl create -f selenium-hub-deployment.yaml 
+      - run: kubectl create -f chrome-service.yaml
+      - run: kubectl create -f firefox-service.yaml
+      - run: kubectl create -f firefox-deployment.yaml
+      - run: kubectl create -f chrome-deployment.yaml
+      - run: kubectl create -f chrome-claim0-persistentvolumeclaim.yaml
 
       
-      #- run: kubectl get pods
-      #- run: kubectl get services
+      - run: kubectl get pods
+      - run: kubectl get services
       #----
       # run test case
       - run: pip install selenium
