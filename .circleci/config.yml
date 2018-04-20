@@ -80,7 +80,7 @@ jobs:
       # compose image and kubectl run 
       #- run: kompose up
       - run: kompose convert -f docker-compose.yml
-      - run: kompose create -f
+      - run: kubectl create -f
       - run: kubectl get pods
       - run: kubectl get services
       # run test case
