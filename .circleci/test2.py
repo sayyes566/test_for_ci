@@ -15,7 +15,7 @@ class SearchText(unittest.TestCase):
         #lists = self.chrome.find_elements_by_class_name("w10")
         #no=len(lists)
         title=self.chrome.title
-        self.assertIn('Hello', len(title))
+        self.assertIn('Hello', title)
    def tearDown(self):
         # close the browser window
         self.chrome.quit()
