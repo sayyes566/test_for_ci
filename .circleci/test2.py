@@ -11,11 +11,7 @@ class SearchText(unittest.TestCase):
             desired_capabilities=DesiredCapabilities.CHROME)
         test_ip = sys.argv[1]
         self.chrome.get('http://' + test_ip)
-        self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(30)
-        self.driver.maximize_window()
-        # navigate to the application home page
-        self.driver.get("http://www.google.com/")
+
 
     def test_search_by_text(self):
         lists = self.driver.find_elements_by_class_name("w10")
