@@ -98,7 +98,7 @@ jobs:
       #- run: kubectl create -f chrome-service.yaml
       #- run: kubectl create -f firefox-service.yaml
       #- run: kubectl create -f firefox-deployment.yaml
-      #- run: kubectl create -f chrome-deployment.yaml
+      - run: kubectl create -f chrome-deployment.yaml
       #- run: kubectl create -f chrome-claim0-persistentvolumeclaim.yaml
 
       
