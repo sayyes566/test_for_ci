@@ -74,9 +74,8 @@ jobs:
       - run: cat service.txt
       - run: kubectl get service  hello-circleci-web
       - run: cat service.txt  | awk '{print $10}'
-      - run: cat service.txt 
+      - run: echo $(cat service.txt  | awk '{print $10}') > ip.txt 
       - run: server_ip=$(cat service.txt  | awk '{print $10}')
-      - run: echo $server_ip > ip.txt
       - run: cat ip.txt
       # install kompose
       
@@ -104,7 +103,7 @@ jobs:
       #----
       # run test case
       - run: pip install selenium
-      - run: python test2.py --input=http://${server_ip}/test.html 
+      - run: python test2.py --input=http://$(cat ip.txt)/test.html 
 
 workflows:
   version: 2
