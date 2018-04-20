@@ -76,10 +76,10 @@ jobs:
       - run: chmod +x kompose
       - run: mv ./kompose /usr/local/bin/kompose
       # compose image and kubectl run 
-      - run: kompose up -f ./.circleci/docker-compose.yml
+      - run: kompose up
       # run test case
       - run: pip install selenium
-      - run: python ./.circleci/test2.py --input=http://${server_ip}/test.html 
+      - run: python test2.py --input=http://${server_ip}/test.html 
 
 
 
