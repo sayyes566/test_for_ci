@@ -91,7 +91,8 @@ jobs:
       - run: echo $yaml
       - run: cat selenium-hub-deployment.yaml
       - run: cat selenium-hub-service.yaml
-      - run: cat chrome*.yaml
+      - run: cat chrome-claim0-persistentvolumeclaim.yaml
+      - run: cat chrome-deployment.yaml
       #- run: kubectl create -f .
       #----
       #- run: kubectl create -f selenium-hub-service.yaml
