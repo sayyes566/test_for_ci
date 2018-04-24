@@ -116,8 +116,6 @@ jobs:
       #----
       # run test case
       - run: pip install selenium
-      - run: cat ip.txt 
-      - run: ping $(cat ip.txt)
       - run: $(cat ip.txt)
       - run: python test2.py --input=http://$(cat ip.txt)/test.html 
 
