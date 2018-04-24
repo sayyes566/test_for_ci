@@ -46,7 +46,8 @@ jobs:
     steps:
       - checkout
       - run: echo "----run config"
-      - run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
+      - run: GOOGLE_PROJECT_ID="test-ci-202106"
+      #- run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
       - run: gcloud auth activate-service-account --key-file=./gcloud-service-key.json
       #- run: docker version --format '{{.Client.Version}}'
       #- run: gcloud alpha auth configure-docker
