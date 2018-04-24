@@ -64,9 +64,9 @@ jobs:
       #----
       #- run: gcloud container clusters create hello-circleci-cluster --num-nodes=4 
       - run: gcloud container clusters get-credentials hello-circleci-cluster
-      - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
-      - run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 --port 80
-      - run: kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 80
+      #- run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
+      #- run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 --port 80
+      #- run: kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 80
       #----
       #- run: kubectl scale deployment hello-circleci-web --replicas=2
       #- run: kubectl set image deployment/hello-web hello-web=gcr.io/${PROJECT_ID}/hello-circleci-app:v3
@@ -79,6 +79,8 @@ jobs:
       - run: echo $(cat service.txt  | awk '{print $10}') > ip.txt 
       - run: server_ip=$(cat service.txt  | awk '{print $10}')
       - run: cat ip.txt
+      - run: while [ "$(cat ip.txt)" == "<pending>" ] ; do echo "pending, please wait"; sleep 2; done
+
       # install kompose
       
       - run: curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-linux-amd64 -o kompose
@@ -98,15 +100,15 @@ jobs:
 
       #- run: kubectl create -f .
       #----
-      - run: kubectl create -f selenium-hub-deployment.yaml
-      - run: kubectl create -f selenium-hub-service.yaml
+      #- run: kubectl create -f selenium-hub-deployment.yaml
+      #- run: kubectl create -f selenium-hub-service.yaml
       
-      - run: kubectl create -f firefox-deployment.yaml
-      - run: kubectl create -f firefox-service.yaml
+      #- run: kubectl create -f firefox-deployment.yaml
+      #- run: kubectl create -f firefox-service.yaml
 
-      - run: kubectl create -f chrome-claim0-persistentvolumeclaim.yaml
-      - run: kubectl create -f chrome-deployment.yaml
-      - run: kubectl create -f chrome-service.yaml
+      #- run: kubectl create -f chrome-claim0-persistentvolumeclaim.yaml
+      #- run: kubectl create -f chrome-deployment.yaml
+      #- run: kubectl create -f chrome-service.yaml
 
       
       - run: kubectl get pods
@@ -114,6 +116,9 @@ jobs:
       #----
       # run test case
       - run: pip install selenium
+      - run: cat ip.txt 
+      - run: ping $(cat ip.txt)
+      - run: $(cat ip.txt)
       - run: python test2.py --input=http://$(cat ip.txt)/test.html 
 
 workflows:
