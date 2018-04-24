@@ -62,7 +62,7 @@ jobs:
       #- run: docker push  gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
       #- run: docker run --rm -p 8080:8080 gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
       #----
-      - run: gcloud container clusters create hello-circleci-cluster2 --num-nodes=4 
+      #1- run: gcloud container clusters create hello-circleci-cluster2 --num-nodes=4 
       - run: gcloud container clusters get-credentials hello-circleci-cluster2
       #1- run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
       #1- run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 --port 80
@@ -87,7 +87,7 @@ jobs:
       - run: chmod +x kompose
       - run: mv ./kompose /usr/local/bin/kompose
       # compose image and kubectl run 
-      - run: kompose up
+      #- run: kompose up
       - run: kompose convert -f docker-compose.yml 
       - run: pwd
       - run: ls -la
