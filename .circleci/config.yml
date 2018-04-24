@@ -63,7 +63,7 @@ jobs:
       #- run: docker run --rm -p 8080:8080 gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
       #----
       #- run: gcloud container clusters create hello-circleci-cluster --num-nodes=4 
-      #- run: gcloud container clusters get-credentials hello-circleci-cluster
+      - run: gcloud container clusters get-credentials hello-circleci-cluster
       - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
       - run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 --port 80
       - run: kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 80
