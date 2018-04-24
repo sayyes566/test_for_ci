@@ -49,6 +49,7 @@ jobs:
       - run: GOOGLE_PROJECT_ID="test-ci-202106"
       #- run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ./gcloud-service-key.json
       - run: gcloud auth activate-service-account --key-file=./gcloud-service-key.json
+      - run: cat ./gcloud-service-key.json
       #- run: docker version --format '{{.Client.Version}}'
       #- run: gcloud alpha auth configure-docker
       - run: gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
@@ -61,8 +62,8 @@ jobs:
       #- run: docker push  gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
       #- run: docker run --rm -p 8080:8080 gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
       #----
-      - run: gcloud container clusters create hello-circleci-cluster --num-nodes=4 
-      - run: gcloud container clusters get-credentials hello-circleci-cluster
+      #- run: gcloud container clusters create hello-circleci-cluster --num-nodes=4 
+      #- run: gcloud container clusters get-credentials hello-circleci-cluster
       - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
       - run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 --port 80
       - run: kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 80
