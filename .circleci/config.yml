@@ -81,14 +81,14 @@ jobs:
       - run: cat ip.txt
       - run: 
            name: wait for external ip
-           command:|
-           while [ "$(cat ip.txt)" == "<pending>" ] ; 
-           do 
-           echo $(kubectl get service  hello-circleci-web) > service.txt
-           echo $(cat service.txt  | awk '{print $10}') > ip.txt ;
-           echo "pending, please wait"; 
-           sleep 2; 
-           done
+           command: |
+             while [ "$(cat ip.txt)" == "<pending>" ] ; 
+             do 
+             echo $(kubectl get service  hello-circleci-web) > service.txt
+             echo $(cat service.txt  | awk '{print $10}') > ip.txt ;
+             echo "pending, please wait"; 
+             sleep 2; 
+             done
 
       # install kompose
       
