@@ -125,7 +125,8 @@ jobs:
       #----
       # run test case
       #- run: pip install selenium
-       - run: 
+
+      - run: 
            name: run test
            command: |           
              ip=$(cat ip.txt)
