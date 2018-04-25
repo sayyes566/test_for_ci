@@ -62,24 +62,24 @@ jobs:
       #- run: docker push  gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
       #- run: docker run --rm -p 8080:8080 gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4
       #----
-      - run: gcloud container clusters create hello-circleci-cluster2 --num-nodes=1 
-      - run: gcloud container clusters get-credentials hello-circleci-cluster2
-      - run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
-      - run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 --port 80
-      - run: kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 80
+      #1- run: gcloud container clusters create hello-circleci-cluster2 --num-nodes=1 
+      #1- run: gcloud container clusters get-credentials hello-circleci-cluster2
+      #1- run: gcloud container builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 .
+      #1- run: kubectl run hello-circleci-web --image=gcr.io/${GOOGLE_PROJECT_ID}/hello-circleci-app:v4 --port 80
+      #1- run: kubectl expose deployment hello-circleci-web --type=LoadBalancer --port 80 --target-port 80
       #----
       #- run: kubectl scale deployment hello-circleci-web --replicas=2
       #- run: kubectl set image deployment/hello-web hello-web=gcr.io/${PROJECT_ID}/hello-circleci-app:v3
       # get external ip
-      - run: gcloud container clusters get-credentials hello-circleci-cluster2
-      - run: echo $(kubectl get service  hello-circleci-web) > service.txt
+      #1- run: gcloud container clusters get-credentials hello-circleci-cluster2
+      #1- run: echo $(kubectl get service  hello-circleci-web) > service.txt
       - run: cat service.txt
       - run: kubectl get service  hello-circleci-web
       - run: cat service.txt  | awk '{print $10}'
       - run: echo $(cat service.txt  | awk '{print $10}') > ip.txt 
       - run: server_ip=$(cat service.txt  | awk '{print $10}')
       - run: cat ip.txt
-      - run: while [ "$(cat ip.txt)" == "<pending>" ] ; do echo "pending, please wait"; sleep 2; done
+      - run: while [ "$(cat ip.txt)" == "<pending>" ] ; do echo $(cat service.txt  | awk '{print $10}') > ip.txt ; echo "pending, please wait"; sleep 2; done
 
       # install kompose
       
@@ -117,7 +117,7 @@ jobs:
       # run test case
       - run: pip install selenium
       #@- run: ip=$(cat ip.txt)
-      - run: python test2.py --input=http://35.229.159.251/test.html 
+      - run: python test2.py --input=http://35.201.172.208/test.html 
 
 workflows:
   version: 2
