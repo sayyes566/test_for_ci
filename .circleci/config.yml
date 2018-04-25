@@ -116,6 +116,8 @@ jobs:
       #----
       # run test case
       - run: pip install selenium
+      - run: curl http://35.229.159.251:4444/wd/hub
+      - run: curl http://35.201.172.208/test.html 
       #@- run: ip=$(cat ip.txt)
       - run: python test2.py --input=http://35.201.172.208/test.html 
 
