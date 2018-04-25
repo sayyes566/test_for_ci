@@ -126,7 +126,7 @@ jobs:
       # run test case
       #- run: pip install selenium
       #@- run: ip=$(cat ip.txt)
-      - run: gcloud container clusters get-credentials cluster-2
+      - run: gcloud container clusters get-credentials cluster-2 --zone asia-east1-c	
       - run: PODNAME="selenium-python-6479976d89-4wmqj"
       - run: kubectl exec --stdin=true --tty=true $PODNAME -- python test2.py --driverip=35.229.159.251 --testurl=http://35.201.172.208/test.php
 
