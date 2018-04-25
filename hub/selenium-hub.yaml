@@ -15,7 +15,7 @@ spec:
    spec:
     containers:
     - name : selenium-hub
-      image: gcr.io/${PROJECT_ID}/selenium-hub:2.50.0
+      image: gcr.io/test-ci-202106/selenium-hub:2.50.0
       ports:
       - containerPort: 4444
       livenessProbe:
