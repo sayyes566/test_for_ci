@@ -5,11 +5,12 @@ import sys, argparse
 
 class SearchText(unittest.TestCase):
    def setUp(self):
-        self.test_url="http://35.201.172.208/test.php"
+        self.test_url=args.driverip
         print( self.test_url)
+        print( 'http://'+=args.testurl+'/wd/hub')
         # create a new session
         self.chrome = webdriver.Remote(
-            command_executor='http://10.55.242.84:4444/wd/hub',
+            command_executor='http://'+=args.testurl+'/wd/hub',
             desired_capabilities=DesiredCapabilities.CHROME)
         self.chrome.get(' + self.test_url + ')
    def test_search_by_text(self):
