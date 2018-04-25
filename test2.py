@@ -7,12 +7,12 @@ class SearchText(unittest.TestCase):
    def setUp(self):
         self.test_url=args.driverip
         print( self.test_url)
-        print( 'http://'+ args.driverip+ '/wd/hub')
+        print( 'http://' + args.driverip + ':4444/wd/hub')
         # create a new session
         self.chrome = webdriver.Remote(
-            command_executor='http://' + args.driverip + '/wd/hub',
+            command_executor='http://' + args.driverip + ':4444/wd/hub',
             desired_capabilities=DesiredCapabilities.CHROME)
-        self.chrome.get(' + self.test_url + ')
+        self.chrome.get(self.test_url)
    def test_search_by_text(self):
         #lists = self.chrome.find_elements_by_class_name("w10")
         #no=len(lists)
