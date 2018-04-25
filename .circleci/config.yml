@@ -133,7 +133,7 @@ jobs:
              echo $ip
              echo http://$ip/test.php
              gcloud container clusters get-credentials cluster-2 --zone asia-east1-c	
-             kubectl exec --stdin=true --tty=true "selenium-python-6479976d89-4wmqj -- python test2.py --driverip=35.229.159.251 --testurl=http://35.201.172.208/test.php
+             kubectl exec --stdin=true --tty=true selenium-python-6479976d89-4wmqj -- python test2.py --driverip=35.229.159.251 --testurl=http://$ip/test.php
 
 workflows:
   version: 2
