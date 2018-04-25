@@ -71,8 +71,8 @@ jobs:
       #- run: kubectl scale deployment hello-circleci-web --replicas=2
       #- run: kubectl set image deployment/hello-web hello-web=gcr.io/${PROJECT_ID}/hello-circleci-app:v3
       # get external ip
-      #1- run: gcloud container clusters get-credentials hello-circleci-cluster2
-      #1- run: echo $(kubectl get service  hello-circleci-web) > service.txt
+      - run: gcloud container clusters get-credentials hello-circleci-cluster2
+      - run: echo $(kubectl get service  hello-circleci-web) > service.txt
       - run: cat service.txt
       - run: kubectl get service  hello-circleci-web
       - run: cat service.txt  | awk '{print $10}'
