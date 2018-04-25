@@ -7,10 +7,10 @@ class SearchText(unittest.TestCase):
    def setUp(self):
         self.test_url=args.driverip
         print( self.test_url)
-        print( 'http://'+=args.testurl+'/wd/hub')
+        print( 'http://'+ args.testurl+ '/wd/hub')
         # create a new session
         self.chrome = webdriver.Remote(
-            command_executor='http://'+=args.testurl+'/wd/hub',
+            command_executor='http://' + args.testurl + '/wd/hub',
             desired_capabilities=DesiredCapabilities.CHROME)
         self.chrome.get(' + self.test_url + ')
    def test_search_by_text(self):
